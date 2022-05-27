@@ -1,6 +1,6 @@
 # Habitue-countries
 
-review na vercel https://vercel.com/lrhernandes/habitue-countries
+Preview na vercel https://vercel.com/lrhernandes/habitue-countries
 
 ## Recommended IDE Setup
 
