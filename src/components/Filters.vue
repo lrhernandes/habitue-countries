@@ -18,7 +18,7 @@
         <el-option label="Espanhol" value="es" />
       </el-select>
     </el-form-item>
-    <el-button type="primary"
+    <el-button type="primary" @click="()=> $emit('filter', form)"
       >FILTRAR</el-button
     >
   </el-form>
@@ -54,10 +54,14 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  justify-content: start;
   margin-bottom: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
 
   .el-form-item {
     margin: 0px;
+    flex: 1 100px;
   }
   .el-form-item + .el-form-item {
     margin-left: 10px;

@@ -25,11 +25,14 @@ export default {
 <style scoped lang="scss">
 header {
   width: max-content;
+  
+  left: 20px;
+  top: 20px;
   display: flex;
-  padding: 20px;
   margin-left: 10px;
   flex-direction: row;
   align-items: flex-end;
+  position: absolute;
   .logo-text {
     font-size: 55px;
     margin-left: 10px;

@@ -1,6 +1,6 @@
 <template>
   <div class="custom-select">
-    <el-select v-model="selected" size="large" placeholder="Selecione">
+    <el-select v-model="selected" size="large" placeholder="Selecione" @change="$emit('select', selected)">
       <el-option
         :value="option.code"
         :label="option.name"

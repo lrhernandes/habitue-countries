@@ -9,6 +9,7 @@ import {
 import { DefaultApolloClient } from "@vue/apollo-composable";
 import "./styles/base.scss";
 import "./styles/element/index.scss";
+import store from './store/index'
 
 
 const httpLink = createHttpLink({
@@ -27,6 +28,6 @@ const app = createApp({
   render: () => h(App),
 });
 
-
+app.use(store)
 app.use(router);
 app.mount("#app");

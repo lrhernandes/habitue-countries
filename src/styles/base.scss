@@ -4,9 +4,17 @@
   font-family: "Nunito", sans-serif;
 }
 
-body {
+body{
   margin: 0px;
   font-family: "Roboto", sans-serif;
+}
+
+.el-radio-group{
+  flex-wrap: nowrap !important;
+}
+
+.el-tag{
+  margin-bottom: 10px;
 }
 
 .el-tag + .el-tag{
