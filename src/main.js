@@ -7,7 +7,9 @@ import {
   InMemoryCache,
 } from "@apollo/client/core";
 import { DefaultApolloClient } from "@vue/apollo-composable";
-import "./assets/base.scss";
+import "./styles/base.scss";
+import "./styles/element/index.scss";
+
 
 const httpLink = createHttpLink({
   uri: "https://countries.trevorblades.com/graphql",
@@ -24,6 +26,7 @@ const app = createApp({
   },
   render: () => h(App),
 });
+
 
 app.use(router);
 app.mount("#app");

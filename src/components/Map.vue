@@ -3,6 +3,7 @@ import feather from "feather-icons";
 import gql from "graphql-tag";
 import { computed, onMounted, reactive, toRefs } from "vue";
 import { useQuery, useResult } from "@vue/apollo-composable";
+import Select from "./Select.vue";
 
 export default {
   mounted() {
@@ -17,12 +18,10 @@ export default {
         }
       }
     `;
-
     const data = reactive({
       continents: {},
       selectedContinent: "",
     });
-
     function handleSearchCountries() {
       //     const SEARCH_COUNTRIES = gql`
       //   query searchCountry($code: String = "${this.selectedContinent}"){
@@ -52,37 +51,24 @@ export default {
       const { countries } = useQuery(SEARCH_COUNTRIES);
       data.countries = computed(() => countries.value?.continents ?? []);
     }
-
     const { result } = useQuery(ALL_CONTINENTS_QUERY);
     data.continents = computed(() => result.value?.continents ?? []);
     return { ...toRefs(data), handleSearchCountries };
   },
+  components: { Select },
 };
 </script>
 
 <template>
   <section>
     <div class="map-wrapper">
-      <h1 class="poiret">
-        selecione um continente para continuar
-        <i data-feather="arrow-right"></i>
-      </h1>
-      <!-- <img class="map" src="../assets/map.png" /> -->
+      <h1 class="nunito">selecione um continente para continuar</h1>
       <div id="map"></div>
-      <select
-        v-model="selectedContinent"
-        placeholder="Selecione o continente"
-        @change="handleSearchCountries()"
-      >
-        <option disabled value="">Selecione o continente</option>
-        <option
-          :value="continent.code"
-          :label="continent.name"
-          :key="continent.code"
-          v-for="continent in continents"
-        ></option>
-      </select>
-      <!-- <v-chart class="chart" :option="option" /> -->
+      <Select
+        :options="continents"
+        :selected="selectedContinent"
+        placeholder="Continente"
+      />
       <div class="star-wrapper">
         <div class="star">
           <svg
@@ -105,24 +91,12 @@ export default {
 </template>
 
 <style scoped lang="scss">
-select {
-  width: 400px;
-  height: 50px;
-  padding: 10px;
-  border: 1px solid #272727;
-  outline: none;
-  border-radius: 50px;
-  background: white;
-  color: #272727;
-  font-family: "Poiret One", cursive;
-  font-size: 20px;
-  font-weight: 600;
-}
 .map-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   .map {
     width: 50%;
     max-height: 60vh;
@@ -132,9 +106,8 @@ select {
     font-size: 36px;
     font-weight: 400;
     margin: 40px 0px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
+    text-align: center;
+    max-width: 75vw;
     svg {
       margin-left: 10px;
     }
@@ -148,6 +121,25 @@ select {
 
     .star {
       margin: 20px;
+      -webkit-animation: spin 15s linear infinite;
+      -moz-animation: spin 15s linear infinite;
+      animation: spin 15s linear infinite;
+    }
+    @-moz-keyframes spin {
+      100% {
+        -moz-transform: rotate(360deg);
+      }
+    }
+    @-webkit-keyframes spin {
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    @keyframes spin {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
     }
 
     .star-line {

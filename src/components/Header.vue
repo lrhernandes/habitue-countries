@@ -12,7 +12,7 @@
       />
       <path fill="#" d="" />
     </svg>
-    <span class="poiret logo-text">continents</span>
+    <span class="nunito logo-text">continents</span>
   </header>
 </template>
 
@@ -26,6 +26,8 @@ export default {
 header {
   width: max-content;
   display: flex;
+  padding: 20px;
+  margin-left: 10px;
   flex-direction: row;
   align-items: flex-end;
   .logo-text {

@@ -5,9 +5,10 @@ import { useQuery, useResult } from "@vue/apollo-composable";
 
 import Header from "../components/Header.vue";
 import Map from "../components/Map.vue";
+import Table1 from "../components/Table.vue";
 
 export default {
-  components: { Header, Map },
+  components: { Header, Map, Table1 },
   setup() {
     const data = reactive({
       continents: {},
@@ -131,31 +132,7 @@ export default {
     </div>
     <section>
       <div class="chess">
-        <div class="select-options"></div>
-
-        <div class="table-wrapper">
-          <table>
-            <tr>
-              <th>País</th>
-              <th>Moeda</th>
-              <th>Línguas</th>
-            </tr>
-            <tbody>
-              <tr v-for="country in countries" :key="country.code">
-                <td>{{ country.name }}</td>
-                <td>{{ country.currency }}</td>
-                <td>
-                  <div
-                    v-for="language in country.languages"
-                    :key="language.code"
-                  >
-                    {{ language.name }}
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <Table :countries="countries" />
       </div>
     </section>
   </main>
@@ -168,38 +145,17 @@ export default {
   .noise {
     background-image: url("../assets/noise.png");
     background-repeat: repeat;
-  }
-}
+    animation: AnimateBG 50s linear infinite;
 
-.table-wrapper {
-  padding: 20px;
-  margin: 20px;
-  max-width: 95vw;
-  background: rgb(255, 255, 255);
-  border-radius: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  table {
-    background: white;
-    width: 100%;
-    border-collapse: collapse;
-    font-family: "Roboto", sans-serif;
-
-    th {
-      padding-top: 12px;
-      width: 100%;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #17e8b0;
-      color: #272727;
-    }
-    tbody {
-      tr:nth-child(even) {
-        background-color: #f2f2f2;
+    @keyframes AnimateBG {
+      0% {
+        background-position: 0%;
       }
-      td {
-        width: 100%;
-        border-bottom: 1px solid gray;
+      // 50% {
+      //   background-position: 100% 50%;
+      // }
+      100% {
+        background-position: 100%;
       }
     }
   }
@@ -209,25 +165,22 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 200px;
-  background-image: repeating-linear-gradient(
-      to bottom,
-      #dcdcdc 0,
-      #dcdcdc 0px,
-      transparent 1px,
-      transparent 30px
-    ),
-    repeating-linear-gradient(
-      to right,
-      #fff 0,
-      #fff 29px,
-      #dcdcdc 29px,
-      #dcdcdc 30px
-    );
-
-  select {
-    margin-top: 30px;
-    color: #272727;
-  }
+  // padding-bottom: 200px;
+  padding: 20px;
+  background: rgb(241, 241, 241);
+  // background-image: repeating-linear-gradient(
+  //     to bottom,
+  //     #dcdcdc 0,
+  //     #dcdcdc 0px,
+  //     transparent 1px,
+  //     transparent 30px
+  //   ),
+  //   repeating-linear-gradient(
+  //     to right,
+  //     #fff 0,
+  //     #fff 29px,
+  //     #dcdcdc 29px,
+  //     #dcdcdc 30px
+  //   );
 }
 </style>

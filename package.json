@@ -12,6 +12,7 @@
     "@vue/apollo-composable": "^4.0.0-alpha.17",
     "axios": "^0.27.2",
     "echarts": "^5.3.2",
+    "element-plus": "^2.2.2",
     "feather-icons": "^4.29.0",
     "graphql": "^16.5.0",
     "graphql-tag": "^2.12.6",
@@ -24,6 +25,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",
+    "unplugin-auto-import": "^0.8.5",
+    "unplugin-vue-components": "^0.19.6",
     "vite": "^2.9.5"
   }
 }
