@@ -3,13 +3,106 @@ import { computed, onMounted, reactive, toRefs } from "vue";
 import gql from "graphql-tag";
 import { useQuery, useResult } from "@vue/apollo-composable";
 
-import Logo from "../components/Logo.vue";
+import Header from "../components/Header.vue";
+import Map from "../components/Map.vue";
 
 export default {
-  components: { Logo },
+  components: { Header, Map },
   setup() {
     const data = reactive({
       continents: {},
+      selectedContinent: "",
+      countries: [
+        {
+          name: "Antarctica",
+          continent: {
+            code: "AN",
+          },
+          code: "AQ",
+          currency: null,
+          emoji: "🇦🇶",
+          emojiU: "U+1F1E6 U+1F1F6",
+          languages: [],
+        },
+        {
+          name: "Bouvet Island",
+          continent: {
+            code: "AN",
+          },
+          code: "BV",
+          currency: "NOK",
+          emoji: "🇧🇻",
+          emojiU: "U+1F1E7 U+1F1FB",
+          languages: [
+            {
+              name: "Norwegian",
+              code: "no",
+              native: "Norsk",
+            },
+            {
+              name: "Norwegian Bokmål",
+              code: "nb",
+              native: "Norsk bokmål",
+            },
+            {
+              name: "Norwegian Nynorsk",
+              code: "nn",
+              native: "Norsk nynorsk",
+            },
+          ],
+        },
+        {
+          name: "South Georgia and the South Sandwich Islands",
+          continent: {
+            code: "AN",
+          },
+          code: "GS",
+          currency: "GBP",
+          emoji: "🇬🇸",
+          emojiU: "U+1F1EC U+1F1F8",
+          languages: [
+            {
+              name: "English",
+              code: "en",
+              native: "English",
+            },
+          ],
+        },
+        {
+          name: "Heard Island and McDonald Islands",
+          continent: {
+            code: "AN",
+          },
+          code: "HM",
+          currency: "AUD",
+          emoji: "🇭🇲",
+          emojiU: "U+1F1ED U+1F1F2",
+          languages: [
+            {
+              name: "English",
+              code: "en",
+              native: "English",
+            },
+          ],
+        },
+        {
+          name: "French Southern Territories",
+          continent: {
+            code: "AN",
+          },
+          code: "TF",
+          currency: "EUR",
+          emoji: "🇹🇫",
+          emojiU: "U+1F1F9 U+1F1EB",
+          languages: [
+            {
+              name: "French",
+              code: "fr",
+              native: "Français",
+            },
+          ],
+        },
+      ],
     });
 
     const ALL_CONTINENTS_QUERY = gql`
@@ -30,78 +123,111 @@ export default {
 
 <template>
   <main>
-    <Logo />
-    <div class="map-wrapper">
-      <h1 class="poiret">
-        selecione um <span>continente</span> para continuar
-      </h1>
-      <img class="map" src="../assets/map.png" />
-      <div class="star-wrapper">
-        <div class="star-line"></div>
-        <img class="star" src="../assets/star.png" alt="">
-        <div class="star-line"></div>
+    <div class="noise-wrapper">
+      <div class="noise">
+        <Header />
+        <Map />
       </div>
     </div>
+    <section>
+      <div class="chess">
+        <div class="select-options"></div>
 
-    <select name="continentes" id="" placeholder="Selecione o continente">
-      <option
-        :value="continent.name"
-        :label="continent.name"
-        :key="continent.code"
-        v-for="continent in continents"
-      ></option>
-    </select>
+        <div class="table-wrapper">
+          <table>
+            <tr>
+              <th>País</th>
+              <th>Moeda</th>
+              <th>Línguas</th>
+            </tr>
+            <tbody>
+              <tr v-for="country in countries" :key="country.code">
+                <td>{{ country.name }}</td>
+                <td>{{ country.currency }}</td>
+                <td>
+                  <div
+                    v-for="language in country.languages"
+                    :key="language.code"
+                  >
+                    {{ language.name }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   </main>
 </template>
 
-<style scoped>
-.map-wrapper {
+<style scoped lang="scss">
+.noise-wrapper {
+  background-color: #272727;
+  color: white;
+  .noise {
+    background-image: url("../assets/noise.png");
+    background-repeat: repeat;
+  }
+}
+
+.table-wrapper {
+  padding: 20px;
+  margin: 20px;
+  max-width: 95vw;
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  table {
+    background: white;
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Roboto", sans-serif;
+
+    th {
+      padding-top: 12px;
+      width: 100%;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #17e8b0;
+      color: #272727;
+    }
+    tbody {
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      td {
+        width: 100%;
+        border-bottom: 1px solid gray;
+      }
+    }
+  }
+}
+
+.chess {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-}
+  padding-bottom: 200px;
+  background-image: repeating-linear-gradient(
+      to bottom,
+      #dcdcdc 0,
+      #dcdcdc 0px,
+      transparent 1px,
+      transparent 30px
+    ),
+    repeating-linear-gradient(
+      to right,
+      #fff 0,
+      #fff 29px,
+      #dcdcdc 29px,
+      #dcdcdc 30px
+    );
 
-.map-wrapper .map {
-  width: 50%;
-  max-height: 60vh;
-  object-fit: contain;
-}
-.map-wrapper .star {
-  height: 40px;
-  width: 35px;
-  margin: 20px;
-}
-
-.star-wrapper{
-  display: flex;
-  flex-direction: row;
-  margin: 20px 0px;
-  align-items: center;
-}
-.star-line{
-  border-bottom: 1px solid black;
-  width: 30vw;
-  max-width: 350px;
-  height: 0px;
-}
-h1 {
-  font-size: 36px;
-  font-weight: 400;
-  margin: 40px 0px;
-}
-h1 span {
-  border-bottom: 1px solid black;
-}
-select {
-  width: 400px;
-  height: 50px;
-  padding: 10px;
-  border: 1px solid black;
-  outline: none;
-  border-radius: 0px;
-  background: white;
-  font-family: "Poiret One", cursive;
-  font-size: 20px;
+  select {
+    margin-top: 30px;
+    color: #272727;
+  }
 }
 </style>
