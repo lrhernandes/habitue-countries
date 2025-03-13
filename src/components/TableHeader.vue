@@ -1,7 +1,7 @@
 <template>
   <div class="table-header">
-    <h3>RESULTADO DA PESQUISA</h3>
-    <p>Utilize os filtros para limitar a exibição de dados</p>
+    <h3>SEARCH RESULTS</h3>
+    <p>Use the filters to limit data display</p>
   </div>
 </template>
 
